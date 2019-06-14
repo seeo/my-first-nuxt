@@ -1,6 +1,10 @@
 import colors from 'vuetify/es5/util/colors'
 
 export default {
+  server: {
+    port: 8080, // default: 3000
+    host: '0.0.0.0' // default: localhost
+  },
   mode: 'universal',
   /*
   ** Headers of the page
@@ -21,6 +25,10 @@ export default {
           'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
       }
     ]
+  },
+  generate: {
+    fallback: true // if you want to use '404.html' instead of the default '200.html'
+    // fallback: 'my-fallback/file.html' // if your hosting needs a custom location
   },
   /*
   ** Customize the progress-bar color
