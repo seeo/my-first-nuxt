@@ -29,12 +29,14 @@ export default {
   /*
   ** Global CSS
   */
-  css: [
+  css: ['~/assets/style/app.styl'
   ],
   /*
   ** Plugins to load before mounting the App
   */
   plugins: [
+    '@/plugins/vuetify',
+    '@/plugins/axios'
   ],
   /*
   ** Nuxt.js modules
@@ -42,11 +44,17 @@ export default {
   modules: [
     '@nuxtjs/vuetify',
     '@nuxtjs/auth',
+    '@nuxtjs/axios', // Doc: https://github.com/nuxt-community/axios-module#usage
   ],
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
   */
+
+  axios: {
+    baseURL: 'http://localhost:3000'
+  },
+
   vuetify: {
     theme: {
       primary: colors.blue.darken2,
@@ -67,5 +75,24 @@ export default {
     */
     extend(config, ctx) {
     }
-  }
+  },
+  auth: {
+    redirect: {
+      // login: '/login', // page to redirect to on auth failure, default is /login
+      // logout: '/', // page to redirect to on auth failure, default is /
+      home: false
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          logout: { url: '/api/auth/logout', method: 'get' },
+          // user: false // { url: 'http://127.0.0.1:3000/api/auth/user', method: 'get', propertyName: false }
+          login: { url: '/api/auth/login', method: 'post', propertyName: 'token' }, // not used...
+          user: { url: '/api/auth/me', method: 'get', propertyName: 'user' } // not user...
+        },
+        tokenRequired: true,
+        tokenType: 'Bearer'
+      }
+    }
+  },
 }
